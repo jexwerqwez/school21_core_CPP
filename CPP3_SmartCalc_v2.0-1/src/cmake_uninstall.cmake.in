@@ -1,0 +1,12 @@
+if(NOT EXISTS "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt")
+    message(FATAL_ERROR "Файл install_manifest.txt не найден.")
+endif()
+
+file(READ "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt" files)
+string(REGEX REPLACE "\n" ";" files "${files}")
+foreach(file ${files})
+    message(STATUS "Удаляется файл: ${file}")
+    if(EXISTS "${file}")
+        file(REMOVE "${file}")
+    endif()
+endforeach()
